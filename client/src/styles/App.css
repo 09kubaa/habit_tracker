@@ -102,14 +102,18 @@ li {
   list-style: none;
   margin-bottom: 1rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   background-color: #f9f2ed;
   padding: 0.6rem 1rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
 }
-
+li > div {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
 li button {
   margin-left: 0.5rem;
   background-color: #ffa500;

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function HabitList() {
   const [habits, setHabits] = useState([]);
   const [completedToday, setCompletedToday] = useState({});
+  const [showTodayOnly, setShowTodayOnly] = useState(false);
   const navigate = useNavigate();
 
   const frequencyLabels = {
@@ -76,7 +77,16 @@ export default function HabitList() {
     }
   }, [habits]);
 
-  const groupedHabits = habits.reduce((acc, habit) => {
+  const todayDay = new Date()
+    .toLocaleDateString("en-US", { weekday: "long" })
+    .toLowerCase();
+
+  const filteredHabits = habits.filter((habit) => {
+    if (!showTodayOnly) return true;
+    return habit.frequency === "daily" || habit.frequency === todayDay;
+  });
+
+  const groupedHabits = filteredHabits.reduce((acc, habit) => {
     const freq = habit.frequency;
     if (!acc[freq]) acc[freq] = [];
     acc[freq].push(habit);
@@ -87,6 +97,15 @@ export default function HabitList() {
     <div>
       <h2>Twoje nawyki</h2>
       <Link to="/add">➕ Dodaj nowy nawyk</Link>
+
+      <label style={{ display: "block", marginTop: "1rem" }}>
+        <input
+          type="checkbox"
+          checked={showTodayOnly}
+          onChange={(e) => setShowTodayOnly(e.target.checked)}
+        />{" "}
+        Pokaż tylko dzisiejsze nawyki
+      </label>
 
       {Object.keys(frequencyLabels).map((freqKey) => {
         const group = groupedHabits[freqKey];
