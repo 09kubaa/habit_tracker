@@ -1,0 +1,181 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9f6f2;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1dfd0;
+  padding: 0.8rem 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.navbar-logo img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.navbar-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar a,
+.navbar button {
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navbar a:hover,
+.navbar button:hover {
+  color: #ffa500;
+}
+
+/* GŁÓWNY KONTENER */
+.container {
+  max-width: 720px;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* FORMULARZE */
+form input,
+form select,
+form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form button {
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+form button:hover {
+  background-color: #cc8500;
+}
+
+/* LISTA NAWYKÓW */
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f2ed;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+li button {
+  margin-left: 0.5rem;
+  background-color: #ffa500;
+  border: none;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+li button:hover {
+  background-color: #cc8500;
+}
+
+/* STRONA GŁÓWNA */
+.home {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.home h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.home p {
+  color: #555;
+}
+
+.home-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: #ffa500;
+  color: white;
+  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.card:hover {
+  background-color: #cc8500;
+}
+.navbar button {
+  all: unset; /* usunięcie domyślnego stylu buttona */
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.navbar button:hover {
+  color: #ffa500;
+}
+li.completed span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

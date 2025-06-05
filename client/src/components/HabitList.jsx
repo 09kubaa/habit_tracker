@@ -1,0 +1,126 @@
+import { useEffect, useState } from "react";
+import API from "../api";
+import { Link, useNavigate } from "react-router-dom";
+
+export default function HabitList() {
+  const [habits, setHabits] = useState([]);
+  const [completedToday, setCompletedToday] = useState({});
+  const navigate = useNavigate();
+
+  const frequencyLabels = {
+    daily: "Codziennie",
+    weekly: "Co tydzień",
+    monday: "Poniedziałek",
+    tuesday: "Wtorek",
+    wednesday: "Środa",
+    thursday: "Czwartek",
+    friday: "Piątek",
+    saturday: "Sobota",
+    sunday: "Niedziela",
+  };
+
+  const fetchHabits = async () => {
+    try {
+      const res = await API.get("/habits");
+      setHabits(res.data);
+    } catch (err) {
+      if (err.response?.status === 401) {
+        navigate("/login");
+      }
+    }
+  };
+
+  const fetchLogsForToday = async (habits) => {
+    const today = new Date().toISOString().split("T")[0];
+    const status = {};
+
+    for (const habit of habits) {
+      try {
+        const res = await API.get(`/habits/${habit._id}/logs`);
+        const match = res.data.find((log) =>
+          new Date(log.date).toISOString().startsWith(today)
+        );
+        status[habit._id] = !!match;
+      } catch {
+        status[habit._id] = false;
+      }
+    }
+
+    setCompletedToday(status);
+  };
+
+  const logHabit = async (habitId) => {
+    try {
+      await API.post(`/habits/${habitId}/log`);
+      await fetchLogsForToday(habits);
+    } catch {
+      alert("Błąd logowania nawyku.");
+    }
+  };
+
+  const deleteHabit = async (id) => {
+    if (!window.confirm("Na pewno usunąć?")) return;
+    await API.delete(`/habits/${id}`);
+    await fetchHabits();
+  };
+
+  useEffect(() => {
+    (async () => {
+      await fetchHabits();
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (habits.length > 0) {
+      fetchLogsForToday(habits);
+    }
+  }, [habits]);
+
+  const groupedHabits = habits.reduce((acc, habit) => {
+    const freq = habit.frequency;
+    if (!acc[freq]) acc[freq] = [];
+    acc[freq].push(habit);
+    return acc;
+  }, {});
+
+  return (
+    <div>
+      <h2>Twoje nawyki</h2>
+      <Link to="/add">➕ Dodaj nowy nawyk</Link>
+
+      {Object.keys(frequencyLabels).map((freqKey) => {
+        const group = groupedHabits[freqKey];
+        if (!group || group.length === 0) return null;
+
+        return (
+          <div key={freqKey}>
+            <h3 style={{ marginTop: "2rem" }}>{frequencyLabels[freqKey]}</h3>
+            <ul>
+              {group.map((habit) => (
+                <li
+                  key={habit._id}
+                  className={completedToday[habit._id] ? "completed" : ""}
+                >
+                  <span>
+                    <strong>{habit.name}</strong> – {habit.description}
+                  </span>
+                  <div>
+                    <button onClick={() => logHabit(habit._id)}>
+                      ✔️ Wykonano
+                    </button>
+                    <button onClick={() => navigate(`/edit/${habit._id}`)}>
+                      ✏️ Edytuj
+                    </button>
+                    <button onClick={() => deleteHabit(habit._id)}>
+                      🗑 Usuń
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

@@ -1,0 +1,16 @@
+# node_modules - frontend i backend
+client/node_modules/
+server/node_modules/
+
+# pliki środowiskowe
+server/.env
+
+# build Reacta (jeśli zrobisz produkcyjny build)
+client/build/
+
+# systemowe
+.DS_Store
+Thumbs.db
+
+# logi
+*.log
