@@ -14,24 +14,6 @@ Aplikacja do śledzenia nawyków z logowaniem użytkowników, REST API, autoryza
 
 ---
 
-## 📁 Struktura projektu
-
-NAZWA_PROJEKTU/
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── components/ # Komponenty UI (logowanie, rejestracja, habit list, logowanie nawyków)
-│ │ ├── App.js
-│ │ └── index.js
-├── server/ # Express backend
-│ ├── models/
-│ ├── routes/
-│ ├── controllers/
-│ ├── middleware/
-│ ├── index.js
-│ └── .env
-
----
-
 ## 🔐 Funkcjonalności
 
 - ✅ Rejestracja i logowanie z JWT
