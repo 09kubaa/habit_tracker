@@ -6,6 +6,7 @@ const habitLogSchema = new mongoose.Schema({
     ref: "Habit",
     required: true,
   },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   date: { type: Date, required: true },
   completed: { type: Boolean, default: true },
 });

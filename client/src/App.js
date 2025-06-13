@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import HabitList from "./components/HabitList";
@@ -15,10 +16,18 @@ import "./styles/App.css";
 import HabitEditForm from "./components/HabitEditForm";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";
+  });
+
+  useEffect(() => {
+    document.body.className = darkMode ? "dark-mode" : "";
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <main className="container">
           <Routes>
             <Route path="/home" element={<Home />} />

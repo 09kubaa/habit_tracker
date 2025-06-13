@@ -41,20 +41,29 @@ body {
   padding: 0;
 }
 
-.navbar a,
-.navbar button {
-  color: #333;
-  text-decoration: none;
-  background: none;
-  border: none;
-  font-size: 1rem;
+.navbar ul li a,
+.navbar ul li button {
+  all: unset;
+  font-size: large;
+  font-weight: 700;
+  font-family: inherit;
   cursor: pointer;
+  color: #333;
   transition: color 0.2s ease;
+}
+.navbar ul li a:hover,
+.navbar ul li button:hover {
+  color: #ffa500;
 }
 
 .navbar a:hover,
 .navbar button:hover {
   color: #ffa500;
+}
+.navbar a:focus,
+.navbar button:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 /* GŁÓWNY KONTENER */
@@ -126,7 +135,7 @@ li button {
   transition: background-color 0.2s ease;
 }
 
-li button:hover {
+li > div > button:hover {
   background-color: #cc8500;
 }
 
@@ -168,18 +177,136 @@ li button:hover {
 .card:hover {
   background-color: #cc8500;
 }
-.navbar button {
-  all: unset; /* usunięcie domyślnego stylu buttona */
-  font-size: 1rem;
-  cursor: pointer;
-  color: #333;
-  transition: color 0.2s ease;
-}
-
 .navbar button:hover {
   color: #ffa500;
 }
 li.completed span {
   text-decoration: line-through;
   opacity: 0.6;
+}
+.nawyki {
+  font-size: 40px;
+  text-align: center;
+}
+.add-habit a {
+  color: #000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.add-habit a:hover {
+  color: #ffa500;
+}
+.habit_tracker {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #333;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.habit_tracker:hover {
+  color: #ffa500;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark-mode .navbar {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+body.dark-mode .navbar a,
+body.dark-mode .navbar button {
+  color: #fff;
+}
+
+body.dark-mode .navbar a:hover,
+body.dark-mode .navbar button:hover {
+  color: #ffa500;
+}
+
+body.dark-mode .container,
+body.dark-mode .home,
+body.dark-mode li {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+body.dark-mode .card,
+body.dark-mode li button,
+body.dark-mode form button {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-mode li button:hover,
+body.dark-mode .card:hover,
+body.dark-mode form button:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+body.dark-mode a {
+  color: #ffa500;
+}
+
+body.dark-mode a:hover {
+  color: #ffcc80;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark-mode .home p {
+  color: #ccc;
+}
+.nav-button {
+  all: unset;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease;
+}
+body.dark-mode .nav-button {
+  background: none;
+  box-shadow: none;
+}
+body.dark-mode .navbar ul li a,
+body.dark-mode .navbar ul li button {
+  all: unset;
+  font-size: large;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
+body.dark-mode .navbar ul li a:hover,
+body.dark-mode .navbar ul li button:hover {
+  color: #ffa500;
+}
+body.dark-mode .home h1 {
+  color: #fff;
+}
+body.dark-mode .habit_tracker {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .habit_tracker:hover {
+  color: #ffa500;
+  text-shadow: 0 0 8px rgba(255, 165, 0, 0.3);
 }

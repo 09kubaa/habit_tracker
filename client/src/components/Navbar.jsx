@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import logo from "../assets/logo.png"; // ← ścieżka do logo
+import logo from "../assets/logo.png";
 
-export default function Navbar() {
+export default function Navbar({ darkMode, setDarkMode }) {
   const { token, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export default function Navbar() {
     <nav className="navbar">
       <Link to="/home" className="navbar-logo">
         <img src={logo} alt="Habit Tracker logo" />
-        <span class="habit_tracker">Habit Tracker</span>
+        <span className="habit_tracker">Habit Tracker</span>
       </Link>
       <ul>
         {token ? (
@@ -41,6 +41,11 @@ export default function Navbar() {
             </li>
           </>
         )}
+        <li>
+          <button onClick={() => setDarkMode((prev) => !prev)}>
+            {darkMode ? "☀️ Jasny" : "🌙 Ciemny"}
+          </button>
+        </li>
       </ul>
     </nav>
   );

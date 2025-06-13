@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../api";
 import { Link, useNavigate } from "react-router-dom";
+import ProgressBar from "./ProgressBar";
 
 export default function HabitList() {
   const [habits, setHabits] = useState([]);
@@ -52,10 +53,17 @@ export default function HabitList() {
 
   const logHabit = async (habitId) => {
     try {
-      await API.post(`/habits/${habitId}/log`);
+      const isCompleted = completedToday[habitId];
+
+      if (isCompleted) {
+        await API.delete(`/habits/${habitId}/log`);
+      } else {
+        await API.post(`/habits/${habitId}/log`);
+      }
+
       await fetchLogsForToday(habits);
     } catch {
-      alert("Błąd logowania nawyku.");
+      alert("Błąd podczas aktualizacji logu.");
     }
   };
 
@@ -93,10 +101,18 @@ export default function HabitList() {
     return acc;
   }, {});
 
+  const totalToday = filteredHabits.length;
+  const completedCount = filteredHabits.filter(
+    (h) => completedToday[h._id]
+  ).length;
+
   return (
     <div>
-      <h2>Twoje nawyki</h2>
-      <Link to="/add">➕ Dodaj nowy nawyk</Link>
+      <h2 class="nawyki">Twoje nawyki</h2>
+      <h2 className="add-habit">
+        <Link to="/add">➕ Dodaj nowy nawyk</Link>
+      </h2>
+      <ProgressBar total={totalToday} completed={completedCount} />
 
       <label style={{ display: "block", marginTop: "1rem" }}>
         <input

@@ -33,16 +33,44 @@ router.delete("/:id", async (req, res) => {
 router.post("/:id/log", async (req, res) => {
   const log = new HabitLog({
     habitId: req.params.id,
-    date: new Date(), // lub req.body.date
-    completed: true,
+    userId: req.user._id,
+    date: new Date(),
   });
   await log.save();
   res.status(201).send(log);
 });
 
 router.get("/:id/logs", async (req, res) => {
-  const logs = await HabitLog.find({ habitId: req.params.id });
+  const logs = await HabitLog.find({
+    habitId: req.params.id,
+    userId: req.user._id,
+  });
   res.send(logs);
+});
+
+router.delete("/:id/log", async (req, res) => {
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  try {
+    const deleted = await HabitLog.findOneAndDelete({
+      habitId: req.params.id,
+      userId: req.user._id,
+      date: { $gte: todayStart, $lte: todayEnd },
+    });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Brak logu na dziś." });
+    }
+
+    res.status(200).json({ message: "Log usunięty." });
+  } catch (err) {
+    console.error("Błąd usuwania logu:", err);
+    res.status(500).json({ message: "Błąd serwera." });
+  }
 });
 
 module.exports = router;
