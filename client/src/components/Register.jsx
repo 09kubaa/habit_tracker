@@ -16,8 +16,25 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validate = () => {
+    const { firstName, lastName, email, password } = form;
+    if (firstName.trim().length < 2)
+      return "Imię musi mieć przynajmniej 2 znaki.";
+    if (lastName.trim().length < 2)
+      return "Nazwisko musi mieć przynajmniej 2 znaki.";
+    if (!/^\S+@\S+\.\S+$/.test(email)) return "Niepoprawny adres email.";
+    if (password.length < 6) return "Hasło musi mieć przynajmniej 6 znaków.";
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     try {
       await API.post("/users", form);
       navigate("/login");
