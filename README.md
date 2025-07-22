@@ -1,5 +1,5 @@
 Habit Tracker – Fullstack App (MERN)
-Aplikacja do śledzenia nawyków z systemem logowania, autoryzacją JWT, REST API oraz bazą danych MongoDB. Projekt oparty na architekturze klient-serwer (oddzielny frontend i backend).
+Aplikacja do śledzenia nawyków z systemem logowania, autoryzacją JWT, REST API oraz bazą danych MongoDB. Projekt oparty na architekturze klient-serwer (oddzielny frontend i backend). Dodaje deployment na bloba.
 
 Technologie:
 -Frontend: React, React Router, Axios
@@ -37,8 +37,8 @@ npm install
 Uruchomienie:
 Backend:
 cd server
-npm start        # produkcyjnie
-npm run dev      # developersko (np. z nodemon)
+npm start # produkcyjnie
+npm run dev # developersko (np. z nodemon)
 
 Frontend:
 cd client
@@ -46,5 +46,5 @@ npm start
 
 Struktura projektu:
 habit-tracker/
-├── client/    # frontend (React)
-└── server/    # backend (Express + MongoDB)
+├── client/ # frontend (React)
+└── server/ # backend (Express + MongoDB)
