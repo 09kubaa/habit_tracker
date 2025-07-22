@@ -1,0 +1,39 @@
+name: Build and Deploy React to Azure Blob Storage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm ci
+
+      - name: Build React app
+        working-directory: ./client
+        run: npm run build
+
+      - name: Upload to Azure Blob Storage
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+              --destination '$web' \
+              --source './client/build' \
+              --sas-token "?${{ secrets.AZURE_STORAGE_SAS_TOKEN }}" \
+              --overwrite
