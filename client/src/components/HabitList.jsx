@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
@@ -21,7 +21,7 @@ export default function HabitList() {
     sunday: "Niedziela",
   };
 
-  const fetchHabits = async () => {
+  const fetchHabits = useCallback(async () => {
     try {
       const res = await API.get("/habits");
       setHabits(res.data);
@@ -30,7 +30,7 @@ export default function HabitList() {
         navigate("/login");
       }
     }
-  };
+  }, [navigate]);
 
   const fetchLogsForToday = async (habits) => {
     const today = new Date().toISOString().split("T")[0];
