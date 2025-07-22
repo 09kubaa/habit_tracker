@@ -74,10 +74,8 @@ export default function HabitList() {
   };
 
   useEffect(() => {
-    (async () => {
-      await fetchHabits();
-    })();
-  }, []);
+    fetchHabits();
+  }, [fetchHabits]);
 
   useEffect(() => {
     if (habits.length > 0) {
